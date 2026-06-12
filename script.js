@@ -1,16 +1,121 @@
-document.getElementById('year').textContent = new Date().getFullYear();
+/* --- Loading Screen --- */
+const loader = document.getElementById('loader');
+if (!sessionStorage.getItem('xl_loaded')) {
+  sessionStorage.setItem('xl_loaded', '1');
+  const fill = document.getElementById('loaderFill');
+  const lines = document.getElementById('loaderLines');
+  const steps = [
+    { t: 200,  text: 'initializing portfolio...',        color: 'var(--muted)' },
+    { t: 700,  text: 'loading credentials...',           color: 'var(--muted)' },
+    { t: 1100, text: 'system: XUAN LIN — ALL GREEN',     color: 'var(--good)'  },
+  ];
+  setTimeout(() => { fill.style.width = '100%'; }, 250);
+  steps.forEach(s => setTimeout(() => {
+    const el = document.createElement('div');
+    el.className = 'loader-line';
+    el.innerHTML = `<span class="lp">></span><span style="color:${s.color}">${s.text}</span>`;
+    lines.appendChild(el);
+  }, s.t));
+  setTimeout(() => {
+    loader.classList.add('fade-out');
+    setTimeout(() => { loader.style.display = 'none'; }, 500);
+  }, 1700);
+} else {
+  loader.style.display = 'none';
+}
 
+/* --- Scroll Progress Bar --- */
+const progBar = document.getElementById('prog-bar');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  progBar.style.width = pct + '%';
+});
+
+/* --- Cursor Glow --- */
+const cursorGlow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+  cursorGlow.style.left = e.clientX + 'px';
+  cursorGlow.style.top  = e.clientY + 'px';
+});
+
+/* --- Particle Network Canvas --- */
+(function initParticles() {
+  const canvas = document.getElementById('net-canvas');
+  const ctx = canvas.getContext('2d');
+  const COUNT = 70, MAX_DIST = 120;
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function spawn() {
+    particles = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - .5) * .35,
+      vy: (Math.random() - .5) * .35,
+      r: Math.random() * 1.5 + .6,
+    }));
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach((p, i) => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(95,201,201,.45)';
+      ctx.fill();
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const d = Math.hypot(p.x - q.x, p.y - q.y);
+        if (d < MAX_DIST) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(95,201,201,${(1 - d / MAX_DIST) * .18})`;
+          ctx.lineWidth = .6;
+          ctx.stroke();
+        }
+      }
+    });
+    requestAnimationFrame(draw);
+  }
+
+  resize(); spawn(); draw();
+  window.addEventListener('resize', () => { resize(); spawn(); });
+})();
+
+/* --- Navbar --- */
 const nav = document.getElementById('nav');
 const navLinks = document.getElementById('navLinks');
 document.getElementById('navToggle').addEventListener('click', () => navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-const io = new IntersectionObserver((entries) => {
+/* --- Scroll Reveal --- */
+const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
+/* --- Skill Progress Bars --- */
+const skillObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-progress-fill').forEach(bar => {
+        bar.style.width = bar.dataset.level;
+      });
+      skillObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const skillsGrid = document.querySelector('.skills-grid');
+if (skillsGrid) skillObserver.observe(skillsGrid);
+
+/* --- Terminal Typewriter --- */
 const termLines = [
   { cls:'p', t:'> ' }, { cls:'c', t:'whoami\n' },
   { cls:'o', t:'xuan_lin\n\n' },
@@ -26,25 +131,24 @@ const termLines = [
 const termBody = document.getElementById('termBody');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-function typeTerminal(){
-  let i = 0, span = null;
-  (function next(){
-    if (i >= termLines.length){ termBody.insertAdjacentHTML('beforeend','<span class="term-cursor"></span>'); return; }
-    const part = termLines[i];
-    let j = 0;
-    span = document.createElement('span'); span.className = part.cls;
+function typeTerminal() {
+  let i = 0;
+  (function next() {
+    if (i >= termLines.length) { termBody.insertAdjacentHTML('beforeend', '<span class="term-cursor"></span>'); return; }
+    const part = termLines[i]; let j = 0;
+    const span = document.createElement('span'); span.className = part.cls;
     termBody.appendChild(span);
-    (function char(){
-      if (j < part.t.length){ span.textContent += part.t[j++]; setTimeout(char, 16 + Math.random()*22); }
+    (function char() {
+      if (j < part.t.length) { span.textContent += part.t[j++]; setTimeout(char, 16 + Math.random() * 22); }
       else { i++; setTimeout(next, 90); }
     })();
   })();
 }
-const termObserver = new IntersectionObserver((entries) => {
+const termObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting){
-      if (reduceMotion){
-        termBody.innerHTML = termLines.map(l => '<span class="'+l.cls+'">'+l.t.replace(/</g,'&lt;')+'</span>').join('') + '<span class="term-cursor"></span>';
+    if (e.isIntersecting) {
+      if (reduceMotion) {
+        termBody.innerHTML = termLines.map(l => `<span class="${l.cls}">${l.t.replace(/</g,'&lt;')}</span>`).join('') + '<span class="term-cursor"></span>';
       } else { typeTerminal(); }
       termObserver.disconnect();
     }
@@ -52,75 +156,90 @@ const termObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 termObserver.observe(termBody);
 
-document.getElementById('contactForm').addEventListener('submit', function(e){
+/* --- Contact Form --- */
+document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const note = document.getElementById('formNote');
-  const btn = this.querySelector('button[type="submit"]');
-  if (!this.checkValidity()){ note.textContent = '// please fill in all fields first.'; note.style.color = '#E2685B'; return; }
+  const btn  = this.querySelector('button[type="submit"]');
+  if (!this.checkValidity()) { note.textContent = '// please fill in all fields first.'; note.style.color = '#E2685B'; return; }
   btn.disabled = true; btn.textContent = 'Sending…';
   fetch(this.action, { method:'POST', body: new FormData(this), headers:{ 'Accept':'application/json' } })
     .then(r => {
-      if (r.ok){
-        note.textContent = '// message sent — I\'ll get back to you soon.';
-        note.style.color = 'var(--good)';
-        this.reset();
-      } else {
-        note.textContent = '// something went wrong — try emailing me directly.';
-        note.style.color = '#E2685B';
-      }
+      if (r.ok) { note.textContent = "// message sent — I'll get back to you soon."; note.style.color = 'var(--good)'; this.reset(); }
+      else       { note.textContent = '// something went wrong — try emailing me directly.'; note.style.color = '#E2685B'; }
     })
     .catch(() => { note.textContent = '// network error — try again.'; note.style.color = '#E2685B'; })
     .finally(() => { btn.disabled = false; btn.textContent = 'Send Message →'; });
 });
 
+/* --- Character Widget --- */
 const charData = [
   { id:'hero',       img:'images/hero.jpg',        msg:'psst — scroll down, it gets better 👀' },
   { id:'about',      img:'images/avatar.jpg',       msg:'fun fact: i catch the bug everyone else scrolled past. even in prod.' },
   { id:'skills',     img:'images/gentle.jpg',       msg:'// cat skills.json → trust me, it compiles.' },
   { id:'projects',   img:'images/clumsy.jpg',       msg:'built it. broke it. rebuilt it. shipped it. repeat.' },
   { id:'experience', img:'images/professional.jpg', msg:'monitoring 847 alerts rn. still writing docs. still unblinking.' },
+  { id:'certs',      img:'images/avatar.jpg',       msg:'certified. and yes i actually attended these 🏅' },
   { id:'contact',    img:'images/hero.jpg',         msg:"i don't bite. well — depends on the severity level 😌" },
 ];
 
-let charBubbleVisible = true;
-let charImgCurrent = 'images/hero.jpg';
-let charImgAActive = true;
+let charBubbleVisible = true, charImgCurrent = 'images/hero.jpg', charImgAActive = true;
 const charBubbleEl = document.getElementById('charBubble');
 const charTextEl   = document.getElementById('charText');
 const charImgA     = document.getElementById('charImgA');
 const charImgB     = document.getElementById('charImgB');
 
-function charSwitchImg(src){
+function charSwitchImg(src) {
   if (src === charImgCurrent) return;
   charImgCurrent = src;
-  if (charImgAActive){
-    charImgB.src = src; charImgB.classList.remove('char-out'); charImgA.classList.add('char-out');
-  } else {
-    charImgA.src = src; charImgA.classList.remove('char-out'); charImgB.classList.add('char-out');
-  }
+  if (charImgAActive) { charImgB.src = src; charImgB.classList.remove('char-out'); charImgA.classList.add('char-out'); }
+  else                { charImgA.src = src; charImgA.classList.remove('char-out'); charImgB.classList.add('char-out'); }
   charImgAActive = !charImgAActive;
 }
-
-function charSetMsg(msg){
+function charSetMsg(msg) {
   charBubbleEl.style.animation = 'none';
   void charBubbleEl.offsetWidth;
   charBubbleEl.style.animation = '';
   charTextEl.innerHTML = msg + '<span class="char-blink">_</span>';
 }
-
-const charObserver = new IntersectionObserver((entries) => {
+const charObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (!e.isIntersecting) return;
     const d = charData.find(s => s.id === e.target.id);
-    if (d){ charSwitchImg(d.img); charSetMsg(d.msg); }
+    if (d) { charSwitchImg(d.img); charSetMsg(d.msg); }
   });
 }, { threshold: 0.35 });
-
 charData.forEach(d => { const el = document.getElementById(d.id); if (el) charObserver.observe(el); });
-
 document.getElementById('charAvatar').addEventListener('click', () => {
   charBubbleVisible = !charBubbleVisible;
   charBubbleEl.style.display = charBubbleVisible ? '' : 'none';
 });
-
 setTimeout(() => charSetMsg(charData[0].msg), 900);
+
+/* --- Footer Year --- */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- Sudo Easter Egg --- */
+let typeBuf = '';
+document.addEventListener('keydown', e => {
+  typeBuf = (typeBuf + e.key).slice(-10);
+  if (typeBuf.toLowerCase().includes('sudo')) {
+    typeBuf = '';
+    if (document.getElementById('sudo-popup')) return;
+    const pop = document.createElement('div');
+    pop.id = 'sudo-popup';
+    pop.innerHTML = `
+      <div class="sudo-line"><span class="sp">root@xuanlin:~#</span> sudo access granted</div>
+      <div class="sudo-line sudo-ok">[✓] welcome, admin. nice try though 😏</div>
+      <div class="sudo-line sudo-ok">[✓] fun fact: i actually know how sudo works</div>
+      <div class="sudo-line sudo-ok">[✓] security through obscurity is not security</div>
+      <div class="sudo-line sudo-ok">[✓] — xuan lin, SOC analyst 🔐</div>
+      <span class="sudo-close" onclick="this.parentElement.remove()">[ esc to close ]</span>
+    `;
+    document.body.appendChild(pop);
+    document.addEventListener('keydown', function esc(ev) {
+      if (ev.key === 'Escape') { pop.remove(); document.removeEventListener('keydown', esc); }
+    });
+    setTimeout(() => { if (pop.parentElement) pop.remove(); }, 5000);
+  }
+});

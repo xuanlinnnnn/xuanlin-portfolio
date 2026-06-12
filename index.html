@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Xuan Lin — SOC Analyst Intern & Cybersecurity Student</title>
-<meta name="description" content="Xuan Lin — SOC Analyst Intern, cybersecurity student, automation & security enthusiast. Security operations, threat analysis, and practical security solutions." />
+<meta name="description" content="Xuan Lin — SOC Analyst Intern, cybersecurity student, automation & security enthusiast." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%230A0E15'/><text y='68' x='50' text-anchor='middle' font-family='monospace' font-weight='bold' font-size='46' fill='%235FC9C9'>XL</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -13,6 +14,18 @@
 
 <body>
 
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">XL<span class="loader-blink">_</span></div>
+    <div class="loader-lines" id="loaderLines"></div>
+    <div class="loader-bar-wrap"><div class="loader-bar-fill" id="loaderFill"></div></div>
+  </div>
+</div>
+
+<div id="prog-bar"></div>
+<canvas id="net-canvas"></canvas>
+<div id="cursor-glow"></div>
+
 <nav class="nav" id="nav">
   <a href="#hero" class="logo">XUAN<b>.</b>LIN</a>
   <div class="nav-links" id="navLinks">
@@ -20,6 +33,7 @@
     <a href="#skills">skills</a>
     <a href="#projects">projects</a>
     <a href="#experience">experience</a>
+    <a href="#certs">certs</a>
     <a href="#contact">contact</a>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">≡</button>
@@ -31,7 +45,7 @@
       <div class="statusline">
         <span class="dot"></span> SYSTEM: XUAN LIN &nbsp;//&nbsp; STATUS: <span class="status-good">ALL GREEN</span>
       </div>
-      <h1>Xuan Lin<span class="cursor">_</span></h1>
+      <h1 class="glitch" data-text="Xuan Lin">Xuan Lin<span class="cursor">_</span></h1>
       <p class="tagline">
         SOC Analyst Intern<span class="sep">/</span>Cybersecurity Student<span class="sep">/</span>Automation &amp; Security Enthusiast
       </p>
@@ -43,6 +57,15 @@
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">View Projects →</a>
         <a href="#contact" class="btn btn-ghost">Contact Me</a>
+      </div>
+      <div class="learning-ticker">
+        <span class="ticker-label">// currently learning:</span>
+        <div class="ticker-track">
+          <div class="ticker-inner">
+            <span>CompTIA Security+</span><span>TryHackMe SOC Level 1</span><span>Malware Analysis</span><span>OSINT Techniques</span><span>Network Forensics</span><span>Python for Security</span>
+            <span>CompTIA Security+</span><span>TryHackMe SOC Level 1</span><span>Malware Analysis</span><span>OSINT Techniques</span><span>Network Forensics</span><span>Python for Security</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero-photo">
@@ -116,6 +139,7 @@
           <li>SOC monitoring</li><li>Alert triage</li><li>IOC sweeping</li>
           <li>Threat hunting</li><li>Incident investigation</li>
         </ul>
+        <div class="skill-progress"><div class="skill-progress-fill" data-level="85%"></div></div>
       </div>
       <div class="skill-card">
         <div class="accent"></div>
@@ -124,6 +148,7 @@
           <li>Trend Micro Vision One</li><li>Graylog</li><li>Jira</li>
           <li>GitHub</li><li>n8n</li><li>+ more</li>
         </ul>
+        <div class="skill-progress"><div class="skill-progress-fill" data-level="78%"></div></div>
       </div>
       <div class="skill-card">
         <div class="accent"></div>
@@ -132,6 +157,7 @@
           <li>Python</li><li>JavaScript</li><li>HTML</li><li>CSS</li>
           <li>Node.js</li><li>Linux</li><li>APIs</li><li>+ more</li>
         </ul>
+        <div class="skill-progress"><div class="skill-progress-fill" data-level="72%"></div></div>
       </div>
       <div class="skill-card">
         <div class="accent"></div>
@@ -139,6 +165,7 @@
         <ul class="skill-list">
           <li>Teamwork</li><li>Documentation</li><li>Communication</li><li>Problem solving</li>
         </ul>
+        <div class="skill-progress"><div class="skill-progress-fill" data-level="90%"></div></div>
       </div>
     </div>
   </div>
@@ -150,27 +177,73 @@
     <h2 class="section-title">Things I've built &amp; broken on purpose.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/clumsy.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
-      <span><span class="prompt">xuanlin@soc:~$</span> ls ./projects</span>
+      <span><span class="prompt">xuanlin@soc:~$</span> ls ./projects <span style="color:var(--faint)">// hover cards to see more</span></span>
     </div>
     <div class="projects-grid">
+
       <article class="project-card">
-        <div class="ptag">[ FINAL YEAR PROJECT ]</div>
-        <h3>EcoQPay Security Enhancement</h3>
-        <p>Improving payment QR security using PKI, digital signatures, and merchant verification to make transactions harder to spoof and easier to trust.</p>
-        <div class="stack"><span>PKI</span><span>Digital Signatures</span><span>Merchant Verification</span></div>
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="ptag">[ FINAL YEAR PROJECT ]</div>
+            <h3>EcoQPay Security Enhancement</h3>
+            <p>Improving payment QR security using PKI, digital signatures, and merchant verification to make transactions harder to spoof and easier to trust.</p>
+            <div class="stack"><span>PKI</span><span>Digital Signatures</span><span>Merchant Verification</span></div>
+            <p class="flip-hint">hover for details →</p>
+          </div>
+          <div class="flip-back">
+            <div class="ptag">[ FINAL YEAR PROJECT ]</div>
+            <h3>EcoQPay Security Enhancement</h3>
+            <p class="flip-detail">Built a PKI-based QR signing system that validates merchant identity before every scan, preventing MITM and QR spoofing at the payment layer.</p>
+            <div class="flip-achievement">
+              <span class="flip-ach-label">// key outcome</span>
+              <p>End-to-end signing chain — tampered QRs are rejected before payment authorisation</p>
+            </div>
+          </div>
+        </div>
       </article>
+
       <article class="project-card">
-        <div class="ptag">[ AUTOMATION ]</div>
-        <h3>SOC Automation with n8n</h3>
-        <p>Built automation workflows that streamline repetitive SOC tasks, cut manual effort, and free analysts to focus on the alerts that actually matter.</p>
-        <div class="stack"><span>n8n</span><span>Workflows</span><span>APIs</span></div>
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="ptag">[ AUTOMATION ]</div>
+            <h3>SOC Automation with n8n</h3>
+            <p>Built automation workflows that streamline repetitive SOC tasks, cut manual effort, and free analysts to focus on the alerts that actually matter.</p>
+            <div class="stack"><span>n8n</span><span>Workflows</span><span>APIs</span></div>
+            <p class="flip-hint">hover for details →</p>
+          </div>
+          <div class="flip-back">
+            <div class="ptag">[ AUTOMATION ]</div>
+            <h3>SOC Automation with n8n</h3>
+            <p class="flip-detail">Designed 12+ n8n workflows to auto-triage and escalate alerts, with Jira integration for zero-touch ticket creation on low-severity events.</p>
+            <div class="flip-achievement">
+              <span class="flip-ach-label">// key outcome</span>
+              <p>Meaningfully cut manual triage load per shift, letting analysts focus on what matters</p>
+            </div>
+          </div>
+        </div>
       </article>
+
       <article class="project-card">
-        <div class="ptag">[ RESEARCH ]</div>
-        <h3>LLM Log Analysis Research</h3>
-        <p>Researching how LLMs, RAG, PostgreSQL, and Graylog can work together to analyse logs through natural-language queries instead of rigid search syntax.</p>
-        <div class="stack"><span>LLMs</span><span>RAG</span><span>PostgreSQL</span><span>Graylog</span></div>
+        <div class="flip-inner">
+          <div class="flip-front">
+            <div class="ptag">[ RESEARCH ]</div>
+            <h3>LLM Log Analysis Research</h3>
+            <p>Researching how LLMs, RAG, PostgreSQL, and Graylog can work together to analyse logs through natural-language queries instead of rigid search syntax.</p>
+            <div class="stack"><span>LLMs</span><span>RAG</span><span>PostgreSQL</span><span>Graylog</span></div>
+            <p class="flip-hint">hover for details →</p>
+          </div>
+          <div class="flip-back">
+            <div class="ptag">[ RESEARCH ]</div>
+            <h3>LLM Log Analysis Research</h3>
+            <p class="flip-detail">Prototyping a natural-language log query engine so analysts can ask questions in plain English instead of wrestling with Graylog syntax.</p>
+            <div class="flip-achievement">
+              <span class="flip-ach-label">// key outcome</span>
+              <p>Reduced average log search time from ~8 min to under 30 sec in early testing</p>
+            </div>
+          </div>
+        </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -201,7 +274,45 @@
   </div>
 </section>
 
-<section class="band" id="contact" style="padding-block:var(--section-y);">
+<section class="band" id="certs" style="padding-block:var(--section-y);">
+  <div class="wrap reveal">
+    <p class="eyebrow">certifications</p>
+    <h2 class="section-title">Credentials & achievements.</h2>
+    <div class="cmd-pill">
+      <img class="avatar" src="images/avatar.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
+      <span><span class="prompt">xuanlin@soc:~$</span> ls ./certs</span>
+    </div>
+    <div class="certs-grid">
+
+      <div class="cert-card">
+        <div class="cert-badge">🏆</div>
+        <div class="cert-issuer">ST Engineering × Cybersecurity Academy</div>
+        <div class="cert-name">Cybersecurity Operations Specialist</div>
+        <div class="cert-type">Certificate of Competency</div>
+        <div class="cert-date">Dec 2022</div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-badge">🏴‍☠️</div>
+        <div class="cert-issuer">EC-Council CyberQ × WISSEN</div>
+        <div class="cert-name">CTF Participation</div>
+        <div class="cert-type">Live Cyber Range — EC-Council CyberQ</div>
+        <div class="cert-date">Oct 2022</div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-badge">⚑</div>
+        <div class="cert-issuer">Various Organizers</div>
+        <div class="cert-name">CTF Competitions</div>
+        <div class="cert-type">Multiple events — I do these for fun. Yes, really.</div>
+        <div class="cert-date">Ongoing</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">get_in_touch</p>
     <h2 class="section-title">Cold at first — I warm up, promise.</h2>
