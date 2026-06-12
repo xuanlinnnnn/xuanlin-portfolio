@@ -178,7 +178,7 @@ const charData = [
   { id:'about',      img:'images/avatar.jpg',       msg:'fun fact: i catch the bug everyone else scrolled past. even in prod.' },
   { id:'skills',     img:'images/gentle.jpg',       msg:'// cat skills.json → trust me, it compiles.' },
   { id:'projects',   img:'images/clumsy.jpg',       msg:'built it. broke it. rebuilt it. shipped it. repeat.' },
-  { id:'experience', img:'images/professional.jpg', msg:'monitoring 847 alerts rn. still writing docs. still unblinking.' },
+  { id:'experience', img:'images/professional.jpg', msg:'847 alerts. documented every single one. still unblinking.' },
   { id:'certs',      img:'images/avatar.jpg',       msg:'certified. and yes i actually attended these 🏅' },
   { id:'contact',    img:'images/hero.jpg',         msg:"i don't bite. well — depends on the severity level 😌" },
 ];
