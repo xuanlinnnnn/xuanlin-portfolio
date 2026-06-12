@@ -148,20 +148,19 @@ body::before{
 
 /* --- Hero --- */
 .hero{ padding-top:clamp(120px, 18vh, 180px); padding-bottom:var(--section-y); }
-.hero-grid{ display:grid; grid-template-columns:1.25fr .9fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
+.hero-grid{ display:grid; grid-template-columns:240px 1fr; gap:clamp(2.5rem,5vw,5rem); align-items:center; }
 
-.hero-avatar{
-  position:relative; width:92px; height:92px; margin-bottom:1.8rem;
+.hero-portrait-col{ display:flex; justify-content:center; align-items:center; }
+.hero-portrait{
+  position:relative; width:210px; height:210px; border-radius:50%; overflow:hidden; flex-shrink:0;
+  border:3px solid var(--teal);
+  box-shadow:0 0 0 10px rgba(95,201,201,.1), 0 0 60px rgba(95,201,201,.38), 0 20px 60px rgba(0,0,0,.7);
 }
-.hero-avatar img{
-  width:100%; height:100%; border-radius:50%; object-fit:cover;
-  border:2px solid var(--teal);
-  box-shadow:0 0 0 5px rgba(95,201,201,.1), 0 0 32px rgba(95,201,201,.24);
-}
+.hero-portrait img{ width:100%; height:100%; object-fit:cover; object-position:center top; display:block; }
 .hero-av-dot{
-  position:absolute; bottom:5px; right:5px;
-  width:14px; height:14px; border-radius:50%;
-  background:var(--good); border:2.5px solid var(--ink);
+  position:absolute; bottom:14px; right:14px; z-index:1;
+  width:18px; height:18px; border-radius:50%;
+  background:var(--good); border:3px solid var(--ink);
   animation:pulse 2.4s infinite;
 }
 
@@ -215,30 +214,6 @@ body::before{
 .ticker-inner span::before{ content:"▸ "; color:var(--faint); }
 @keyframes ticker{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
 
-/* Hero photo */
-.hero-photo{
-  position:relative; display:flex; align-items:center; justify-content:center;
-  border:none; background:none; overflow:visible; min-height:300px;
-}
-.hero-ring{
-  position:absolute; border-radius:50%; pointer-events:none;
-  border:1px solid rgba(95,201,201,.22);
-}
-.hero-ring-1{ width:300px; height:300px; animation:ringPulse 3.6s ease-out infinite; }
-.hero-ring-2{ width:340px; height:340px; animation:ringPulse 3.6s ease-out infinite .8s; border-color:rgba(95,201,201,.12); }
-.hero-ring-3{ width:380px; height:380px; animation:ringPulse 3.6s ease-out infinite 1.6s; border-color:rgba(95,201,201,.06); }
-.hero-photo .photo-frame{
-  width:260px; height:260px; border-radius:50%; overflow:hidden; position:relative;
-  border:2.5px solid var(--teal);
-  box-shadow:0 0 0 7px rgba(95,201,201,.12), 0 0 55px rgba(95,201,201,.3), 0 24px 64px rgba(0,0,0,.7);
-  flex-shrink:0;
-}
-.hero-photo .photo-frame img{ width:100%; height:100%; object-fit:cover; object-position:center top; }
-.photo-fallback{
-  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
-  background:radial-gradient(120% 120% at 50% 0%, #1b2735, var(--ink));
-  font-family:var(--font-display); font-size:4rem; font-weight:700; color:var(--teal); letter-spacing:.05em;
-}
 /* Terminal chrome (used in about section) */
 .photo-chrome{
   display:flex; align-items:center; gap:.45rem; padding:.7rem .9rem;
@@ -452,11 +427,9 @@ body::before{
 /* --- Responsive --- */
 @media (max-width: 900px){
   .hero-grid, .about-grid, .contact-grid{ grid-template-columns:1fr; }
-  .hero-photo{ margin-top:2rem; min-height:280px; }
-  .hero-photo .photo-frame{ width:220px; height:220px; }
-  .hero-ring-1{ width:252px; height:252px; }
-  .hero-ring-2{ width:288px; height:288px; }
-  .hero-ring-3{ width:324px; height:324px; }
+  .hero-portrait-col{ margin-bottom:.5rem; }
+  .hero-portrait{ width:160px; height:160px; }
+  .hero-av-dot{ bottom:10px; right:10px; width:14px; height:14px; }
   .projects-grid{ grid-template-columns:1fr 1fr; }
   .certs-grid{ grid-template-columns:1fr 1fr; }
   .nav-links{
