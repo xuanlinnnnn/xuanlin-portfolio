@@ -622,7 +622,7 @@ body::before{
       </div>
 
       <!-- CONTACT FORM (design only — no backend yet; see notes below) -->
-      <form class="contact-form" id="contactForm" novalidate>
+      <form class="contact-form" id="contactForm" action="https://formspree.io/f/mjgdpboe" method="POST" novalidate>
         <div class="field">
           <label for="name">Name</label>
           <input type="text" id="name" name="name" placeholder="Your name" required />
@@ -636,7 +636,7 @@ body::before{
           <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Send Message →</button>
-        <p class="form-note" id="formNote">// front-end only for now — connect a service like Formspree to actually send.</p>
+        <p class="form-note" id="formNote">// messages go straight to my inbox.</p>
       </form>
     </div>
   </div>
@@ -714,14 +714,26 @@ const termObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 termObserver.observe(termBody);
 
-/* ---- Contact form (front-end only) ---- */
+/* ---- Contact form — submits to Formspree ---- */
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
   const note = document.getElementById('formNote');
+  const btn = this.querySelector('button[type="submit"]');
   if (!this.checkValidity()){ note.textContent = '// please fill in all fields first.'; note.style.color = '#E2685B'; return; }
-  note.textContent = '// thanks! (demo only — wire up a backend to actually receive this.)';
-  note.style.color = 'var(--good)';
-  this.reset();
+  btn.disabled = true; btn.textContent = 'Sending…';
+  fetch(this.action, { method:'POST', body: new FormData(this), headers:{ 'Accept':'application/json' } })
+    .then(r => {
+      if (r.ok){
+        note.textContent = '// message sent — I\'ll get back to you soon.';
+        note.style.color = 'var(--good)';
+        this.reset();
+      } else {
+        note.textContent = '// something went wrong — try emailing me directly.';
+        note.style.color = '#E2685B';
+      }
+    })
+    .catch(() => { note.textContent = '// network error — try again.'; note.style.color = '#E2685B'; })
+    .finally(() => { btn.disabled = false; btn.textContent = 'Send Message →'; });
 });
 </script>
 </body>
