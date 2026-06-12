@@ -3,51 +3,34 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<!-- ============================================================
-     PORTFOLIO — XUAN LIN
-     Single-file build. Edit content in the marked // EDIT spots.
-     Theme: "SOC console, soft interior" — dark base, warm accents.
-     ============================================================ -->
-
 <title>Xuan Lin — SOC Analyst Intern & Cybersecurity Student</title>
 <meta name="description" content="Xuan Lin — SOC Analyst Intern, cybersecurity student, automation & security enthusiast. Security operations, threat analysis, and practical security solutions." />
-
-<!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (terminal/tags) -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 
 <style>
-/* ============================================================
-   1. DESIGN TOKENS  (change colors / spacing here)
-   ============================================================ */
 :root{
-  --ink:        #0A0E15;   /* page background */
-  --ink-2:      #0D131C;   /* alt background band */
-  --panel:      #121A26;   /* cards / panels */
-  --panel-2:    #18222F;   /* raised panel */
-  --line:       #243140;   /* hairline borders */
-  --amber:      #F2B65A;   /* primary accent (warm / gentle) */
-  --teal:       #5FC9C9;   /* secondary accent (technical / SOC) */
-  --text:       #E8ECF2;   /* primary text */
-  --muted:      #8A98AB;   /* secondary text */
-  --faint:      #5C6878;   /* faint labels */
-  --good:       #6FCF8E;   /* "all green" status */
-
+  --ink:        #0A0E15;
+  --ink-2:      #0D131C;
+  --panel:      #121A26;
+  --panel-2:    #18222F;
+  --line:       #243140;
+  --amber:      #F2B65A;
+  --teal:       #5FC9C9;
+  --text:       #E8ECF2;
+  --muted:      #8A98AB;
+  --faint:      #5C6878;
+  --good:       #6FCF8E;
   --radius:     14px;
   --maxw:       1120px;
   --pad-x:      clamp(20px, 5vw, 64px);
   --section-y:  clamp(72px, 10vw, 130px);
-
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-body:    'Inter', system-ui, sans-serif;
   --font-mono:    'JetBrains Mono', ui-monospace, monospace;
 }
 
-/* ============================================================
-   2. BASE / RESET
-   ============================================================ */
 *{ box-sizing:border-box; margin:0; padding:0; }
 html{ scroll-behavior:smooth; }
 body{
@@ -62,7 +45,6 @@ a{ color:inherit; text-decoration:none; }
 img{ display:block; max-width:100%; }
 ::selection{ background:var(--amber); color:var(--ink); }
 
-/* Subtle ambient grid behind everything */
 body::before{
   content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
   background-image:
@@ -76,10 +58,7 @@ body::before{
 
 .wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:var(--pad-x); position:relative; z-index:1; }
 
-/* ============================================================
-   3. SHARED HELPERS
-   ============================================================ */
-.eyebrow{                                   /* small mono label above headings */
+.eyebrow{
   font-family:var(--font-mono); font-size:.78rem; letter-spacing:.18em;
   text-transform:uppercase; color:var(--teal); display:inline-flex; gap:.6em; align-items:center;
 }
@@ -92,22 +71,20 @@ body::before{
 }
 .lead{ color:var(--muted); max-width:62ch; font-size:1.02rem; }
 
-/* The recurring narrator terminal line — your voice introducing a section */
-.narrator{
+.cmd-pill{
   display:flex; align-items:center; gap:.85rem; margin-bottom:2.4rem;
   font-family:var(--font-mono); font-size:.9rem; color:var(--muted);
   background:var(--panel); border:1px solid var(--line); border-radius:100px;
   padding:.55rem .95rem .55rem .6rem; width:fit-content; max-width:100%;
 }
-.narrator .avatar{
+.cmd-pill .avatar{
   width:34px; height:34px; border-radius:50%; flex-shrink:0; object-fit:cover;
   border:1px solid var(--line);
   background:linear-gradient(135deg, var(--teal), var(--amber));
 }
-.narrator .prompt{ color:var(--amber); }
-.narrator span{ color:var(--text); }
+.cmd-pill .prompt{ color:var(--amber); }
+.cmd-pill span{ color:var(--text); }
 
-/* Buttons */
 .btn{
   font-family:var(--font-mono); font-size:.92rem; font-weight:500;
   display:inline-flex; align-items:center; gap:.55rem;
@@ -119,16 +96,11 @@ body::before{
 .btn-ghost{ background:transparent; color:var(--text); border-color:var(--line); }
 .btn-ghost:hover{ transform:translateY(-2px); border-color:var(--teal); color:var(--teal); }
 
-/* Section band utility */
 .band{ background:var(--ink-2); }
 
-/* Scroll-reveal initial state (JS removes .reveal on view) */
 .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s ease; }
 .reveal.in{ opacity:1; transform:none; }
 
-/* ============================================================
-   4. NAVBAR
-   ============================================================ */
 .nav{
   position:fixed; top:0; left:0; right:0; z-index:50;
   display:flex; align-items:center; justify-content:space-between;
@@ -137,22 +109,16 @@ body::before{
   border-bottom:1px solid transparent; transition:border-color .3s ease, background .3s ease;
 }
 .nav.scrolled{ border-color:var(--line); background:rgba(10,14,21,.85); }
-.nav .logo{
-  font-family:var(--font-mono); font-weight:700; letter-spacing:.04em; font-size:1.02rem;
-}
+.nav .logo{ font-family:var(--font-mono); font-weight:700; letter-spacing:.04em; font-size:1.02rem; }
 .nav .logo b{ color:var(--amber); }
 .nav-links{ display:flex; gap:1.6rem; font-family:var(--font-mono); font-size:.85rem; }
 .nav-links a{ color:var(--muted); transition:color .18s ease; }
 .nav-links a:hover{ color:var(--text); }
 .nav-toggle{ display:none; background:none; border:none; color:var(--text); cursor:pointer; font-size:1.5rem; }
 
-/* ============================================================
-   5. HERO
-   ============================================================ */
 .hero{ padding-top:clamp(120px, 18vh, 180px); padding-bottom:var(--section-y); }
 .hero-grid{ display:grid; grid-template-columns:1.25fr .9fr; gap:clamp(2rem,5vw,4rem); align-items:center; }
 
-/* Live status line */
 .statusline{
   font-family:var(--font-mono); font-size:.82rem; color:var(--muted);
   display:inline-flex; align-items:center; gap:.6rem; margin-bottom:1.6rem;
@@ -178,7 +144,6 @@ body::before{
 .hero .intro{ color:var(--muted); max-width:48ch; margin-bottom:2rem; }
 .hero-cta{ display:flex; gap:.9rem; flex-wrap:wrap; }
 
-/* Hero photo card with terminal chrome */
 .hero-photo{
   position:relative; border:1px solid var(--line); border-radius:var(--radius);
   background:var(--panel); overflow:hidden;
@@ -192,7 +157,6 @@ body::before{
 .photo-chrome span{ margin-left:.4rem; }
 .photo-frame{ aspect-ratio:4/5; position:relative; }
 .photo-frame img{ width:100%; height:100%; object-fit:cover; }
-/* Graceful fallback shown if the image file is missing */
 .photo-fallback{
   position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   background:radial-gradient(120% 120% at 30% 0%, #1b2735, var(--ink));
@@ -200,9 +164,6 @@ body::before{
   letter-spacing:.05em;
 }
 
-/* ============================================================
-   6. ABOUT
-   ============================================================ */
 .about-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(2rem,5vw,4rem); align-items:start; }
 .about-text p{ color:var(--muted); margin-bottom:1.1rem; }
 .about-text strong{ color:var(--text); font-weight:600; }
@@ -212,7 +173,6 @@ body::before{
   border:1px solid var(--line); border-radius:100px; padding:.35rem .8rem; background:var(--panel);
 }
 
-/* Personality terminal (typed by JS) */
 .terminal{
   background:#0B121B; border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
   font-family:var(--font-mono); font-size:.86rem; box-shadow:0 24px 60px -30px rgba(0,0,0,.8);
@@ -220,15 +180,12 @@ body::before{
 .terminal .photo-chrome{ background:var(--panel); }
 .terminal-body{ padding:1.1rem 1.2rem 1.4rem; min-height:230px; }
 .terminal-body .line{ white-space:pre-wrap; line-height:1.85; }
-.terminal-body .p{ color:var(--amber); }     /* prompt */
-.terminal-body .c{ color:var(--text); }       /* command */
-.terminal-body .ok{ color:var(--good); }       /* [✓] */
-.terminal-body .o{ color:var(--muted); }       /* output */
+.terminal-body .p{ color:var(--amber); }
+.terminal-body .c{ color:var(--text); }
+.terminal-body .ok{ color:var(--good); }
+.terminal-body .o{ color:var(--muted); }
 .term-cursor{ display:inline-block; width:8px; height:1.05em; background:var(--teal); vertical-align:-2px; animation:blink 1.1s steps(1) infinite; }
 
-/* ============================================================
-   7. SKILLS
-   ============================================================ */
 .skills-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1.1rem; }
 .skill-card{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:1.6rem;
@@ -249,16 +206,13 @@ body::before{
 .skill-card:nth-child(3) .accent{ background:var(--good); }
 .skill-card:nth-child(4) .accent{ background:#C98AE2; }
 
-/* ============================================================
-   8. PROJECTS
-   ============================================================ */
 .projects-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1.1rem; }
 .project-card{
   position:relative; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
   padding:1.7rem; display:flex; flex-direction:column; min-height:280px; overflow:hidden;
   transition:transform .22s ease, border-color .22s ease;
 }
-.project-card::after{                          /* sweep highlight on hover */
+.project-card::after{
   content:""; position:absolute; inset:0; opacity:0; transition:opacity .3s ease;
   background:radial-gradient(120% 80% at 100% 0%, rgba(242,182,90,.10), transparent 60%);
 }
@@ -270,9 +224,6 @@ body::before{
 .project-card .stack{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:1.2rem; }
 .project-card .stack span{ font-family:var(--font-mono); font-size:.72rem; color:var(--faint); border:1px solid var(--line); border-radius:6px; padding:.25rem .55rem; }
 
-/* ============================================================
-   9. EXPERIENCE
-   ============================================================ */
 .exp-card{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
   padding:clamp(1.6rem,4vw,2.4rem);
@@ -288,9 +239,6 @@ body::before{
 }
 .exp-logs li b{ color:var(--text); font-weight:600; }
 
-/* ============================================================
-   10. CONTACT
-   ============================================================ */
 .contact-grid{ display:grid; grid-template-columns:.9fr 1.1fr; gap:clamp(2rem,5vw,4rem); align-items:start; }
 .contact-links{ display:grid; gap:.8rem; margin-top:1.6rem; }
 .contact-link{
@@ -313,9 +261,6 @@ body::before{
 .field textarea{ resize:vertical; min-height:120px; }
 .form-note{ font-family:var(--font-mono); font-size:.76rem; color:var(--faint); }
 
-/* ============================================================
-   11. FOOTER
-   ============================================================ */
 .footer{
   border-top:1px solid var(--line); padding:2.4rem var(--pad-x);
   display:flex; flex-wrap:wrap; gap:1rem; align-items:center; justify-content:space-between;
@@ -323,9 +268,6 @@ body::before{
 }
 .footer .status-good{ color:var(--good); }
 
-/* ============================================================
-   12. RESPONSIVE  (laptop -> phone)
-   ============================================================ */
 @media (max-width: 900px){
   .hero-grid, .about-grid, .contact-grid{ grid-template-columns:1fr; }
   .hero-photo{ max-width:380px; margin-top:1rem; }
@@ -343,21 +285,15 @@ body::before{
   .hero .tagline .sep{ display:block; height:0; margin:0; }
   .hero .tagline .sep::after{ content:""; }
 }
-
-/* Respect reduced-motion preferences */
 @media (prefers-reduced-motion: reduce){
   *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
   .reveal{ opacity:1; transform:none; }
 }
 
-/* ============================================================
-   13. XUAN CHARACTER
-   ============================================================ */
 #xuan-char{
   position:fixed; bottom:1.8rem; right:1.8rem; z-index:99;
   display:flex; flex-direction:column; align-items:flex-end; gap:.7rem;
 }
-
 .char-bubble{
   background:var(--panel-2); border:1px solid var(--teal); border-radius:16px 16px 4px 16px;
   padding:.65rem 1rem; max-width:215px;
@@ -375,9 +311,7 @@ body::before{
   to{ transform:scale(.8) translateY(4px); opacity:0; }
 }
 .char-blink{ color:var(--teal); animation:blink 1.1s steps(1) infinite; }
-
 .char-wrap{ position:relative; display:flex; align-items:center; justify-content:center; }
-
 .char-ring{
   position:absolute; width:88px; height:88px; border-radius:50%;
   border:2px solid var(--teal); opacity:.45;
@@ -387,7 +321,6 @@ body::before{
   0%  { transform:scale(1);   opacity:.45; }
   100%{ transform:scale(1.55);opacity:0;   }
 }
-
 .char-avatar{
   width:68px; height:68px; border-radius:50%; overflow:hidden;
   border:2.5px solid var(--teal);
@@ -404,7 +337,6 @@ body::before{
   position:absolute; inset:0; transition:opacity .5s ease;
 }
 .char-avatar img.char-out{ opacity:0; }
-
 @media(max-width:620px){
   #xuan-char{ bottom:.9rem; right:.9rem; }
   .char-avatar{ width:52px; height:52px; }
@@ -416,9 +348,6 @@ body::before{
 
 <body>
 
-<!-- ============================================================
-     NAVBAR
-     ============================================================ -->
 <nav class="nav" id="nav">
   <a href="#hero" class="logo">XUAN<b>.</b>LIN</a>
   <div class="nav-links" id="navLinks">
@@ -431,40 +360,26 @@ body::before{
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">≡</button>
 </nav>
 
-<!-- ============================================================
-     HERO
-     ============================================================ -->
 <header class="hero" id="hero">
   <div class="wrap hero-grid">
     <div>
       <div class="statusline">
         <span class="dot"></span> SYSTEM: XUAN LIN &nbsp;//&nbsp; STATUS: <span class="status-good">ALL GREEN</span>
       </div>
-
-      <!-- EDIT: your name -->
       <h1>Xuan Lin<span class="cursor">_</span></h1>
-
-      <!-- EDIT: tagline -->
       <p class="tagline">
         SOC Analyst Intern<span class="sep">/</span>Cybersecurity Student<span class="sep">/</span>Automation &amp; Security Enthusiast
       </p>
-
-      <!-- EDIT: short intro -->
       <p class="intro">
         I'm a cybersecurity student and SOC analyst intern who lets the work speak first.
         Quiet on the surface, meticulous underneath — I notice the small things, document them
         properly, and give everything I take on my full attention.
       </p>
-
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">View Projects →</a>
         <a href="#contact" class="btn btn-ghost">Contact Me</a>
       </div>
     </div>
-
-    <!-- HERO PHOTO
-         EDIT: put your photo at  images/hero.jpg  (suggestion: the mirror selfie).
-         If the file is missing, a clean "XL" fallback shows automatically. -->
     <div class="hero-photo">
       <div class="photo-chrome"><i></i><i></i><i></i><span>~/xuanlin/profile.jpg</span></div>
       <div class="photo-frame">
@@ -477,24 +392,16 @@ body::before{
   </div>
 </header>
 
-<!-- ============================================================
-     ABOUT
-     ============================================================ -->
 <section class="band" id="about" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">about_me</p>
     <h2 class="section-title">Small circle, full commitment.</h2>
-
-    <!-- Narrator line -->
-    <div class="narrator">
-      <!-- EDIT: optional round photo at images/avatar.jpg -->
+    <div class="cmd-pill">
       <img class="avatar" src="images/avatar.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ./introduce --section about</span>
     </div>
-
     <div class="about-grid">
       <div class="about-text">
-        <!-- EDIT: about copy -->
         <p>
           I'm currently studying <strong>Digital Cybersecurity &amp; Digital Forensics at Singapore
           Polytechnic</strong>, while gaining hands-on experience as a <strong>SOC Level 1 Analyst Intern</strong>.
@@ -512,7 +419,6 @@ body::before{
           I don't keep a big circle, but whatever I take on — friendship, family, school, or work —
           gets all of me. (And, allegedly, I'm the funniest one in the group.)
         </p>
-
         <div class="about-tags">
           <span class="tag">introvert</span>
           <span class="tag">细心 / meticulous</span>
@@ -521,8 +427,6 @@ body::before{
           <span class="tag">curious</span>
         </div>
       </div>
-
-      <!-- PERSONALITY TERMINAL — typed automatically by JS -->
       <div class="terminal">
         <div class="photo-chrome"><i></i><i></i><i></i><span>personality.sh</span></div>
         <div class="terminal-body" id="termBody"></div>
@@ -531,20 +435,15 @@ body::before{
   </div>
 </section>
 
-<!-- ============================================================
-     SKILLS
-     ============================================================ -->
 <section id="skills" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">capabilities</p>
     <h2 class="section-title">What I actually do.</h2>
-    <div class="narrator">
+    <div class="cmd-pill">
       <img class="avatar" src="images/gentle.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> cat skills.json <span style="color:var(--faint)">// no buzzword padding, promise</span></span>
     </div>
-
     <div class="skills-grid">
-      <!-- Cybersecurity -->
       <div class="skill-card">
         <div class="accent"></div>
         <div class="head"><h3>Cybersecurity</h3><span class="idx">01</span></div>
@@ -553,7 +452,6 @@ body::before{
           <li>Threat hunting</li><li>Incident investigation</li>
         </ul>
       </div>
-      <!-- Tools -->
       <div class="skill-card">
         <div class="accent"></div>
         <div class="head"><h3>Tools</h3><span class="idx">02</span></div>
@@ -562,7 +460,6 @@ body::before{
           <li>GitHub</li><li>n8n</li><li>+ more</li>
         </ul>
       </div>
-      <!-- Technical -->
       <div class="skill-card">
         <div class="accent"></div>
         <div class="head"><h3>Technical</h3><span class="idx">03</span></div>
@@ -571,7 +468,6 @@ body::before{
           <li>Node.js</li><li>Linux</li><li>APIs</li><li>+ more</li>
         </ul>
       </div>
-      <!-- Soft skills -->
       <div class="skill-card">
         <div class="accent"></div>
         <div class="head"><h3>Soft Skills</h3><span class="idx">04</span></div>
@@ -583,34 +479,27 @@ body::before{
   </div>
 </section>
 
-<!-- ============================================================
-     PROJECTS
-     ============================================================ -->
 <section class="band" id="projects" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">selected_work</p>
     <h2 class="section-title">Things I've built &amp; broken on purpose.</h2>
-    <div class="narrator">
+    <div class="cmd-pill">
       <img class="avatar" src="images/clumsy.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ls ./projects</span>
     </div>
-
     <div class="projects-grid">
-      <!-- Project 1 -->
       <article class="project-card">
         <div class="ptag">[ FINAL YEAR PROJECT ]</div>
         <h3>EcoQPay Security Enhancement</h3>
         <p>Improving payment QR security using PKI, digital signatures, and merchant verification to make transactions harder to spoof and easier to trust.</p>
         <div class="stack"><span>PKI</span><span>Digital Signatures</span><span>Merchant Verification</span></div>
       </article>
-      <!-- Project 2 -->
       <article class="project-card">
         <div class="ptag">[ AUTOMATION ]</div>
         <h3>SOC Automation with n8n</h3>
         <p>Built automation workflows that streamline repetitive SOC tasks, cut manual effort, and free analysts to focus on the alerts that actually matter.</p>
         <div class="stack"><span>n8n</span><span>Workflows</span><span>APIs</span></div>
       </article>
-      <!-- Project 3 -->
       <article class="project-card">
         <div class="ptag">[ RESEARCH ]</div>
         <h3>LLM Log Analysis Research</h3>
@@ -621,22 +510,18 @@ body::before{
   </div>
 </section>
 
-<!-- ============================================================
-     EXPERIENCE
-     ============================================================ -->
 <section id="experience" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">experience</p>
     <h2 class="section-title">Where alerts don't sleep.</h2>
-    <div class="narrator">
+    <div class="cmd-pill">
       <img class="avatar" src="images/professional.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> tail -f experience.log</span>
     </div>
-
     <div class="exp-card">
       <div class="exp-head">
         <h3>SOC Level 1 Analyst Intern</h3>
-        <span class="when">Current</span>  <!-- EDIT: dates / company if you want them shown -->
+        <span class="when">Current</span>
       </div>
       <p class="exp-role">Security Operations Center</p>
       <ul class="exp-logs">
@@ -651,23 +536,18 @@ body::before{
   </div>
 </section>
 
-<!-- ============================================================
-     CONTACT
-     ============================================================ -->
 <section class="band" id="contact" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
     <p class="eyebrow">get_in_touch</p>
     <h2 class="section-title">Cold at first — I warm up, promise.</h2>
-    <div class="narrator">
+    <div class="cmd-pill">
       <img class="avatar" src="images/hero.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> echo "say hi 👋"</span>
     </div>
-
     <div class="contact-grid">
       <div>
         <p class="lead">Open to opportunities, collaborations, or just a good conversation about security. Drop a line through any of these:</p>
         <div class="contact-links">
-          <!-- EDIT: replace the .v values with your real details/links -->
           <a class="contact-link" href="mailto:lauxuanlin2@gmail.com">
             <span class="k">email</span><span class="v">lauxuanlin2@gmail.com</span>
           </a>
@@ -682,8 +562,6 @@ body::before{
           </a>
         </div>
       </div>
-
-      <!-- CONTACT FORM (design only — no backend yet; see notes below) -->
       <form class="contact-form" id="contactForm" action="https://formspree.io/f/mjgdpboe" method="POST" novalidate>
         <div class="field">
           <label for="name">Name</label>
@@ -704,17 +582,11 @@ body::before{
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 <footer class="footer">
   <span>© <span id="year"></span> Xuan Lin — built from scratch.</span>
   <span>STATUS: <span class="status-good">● ALL GREEN</span></span>
 </footer>
 
-<!-- ============================================================
-     XUAN CHARACTER
-     ============================================================ -->
 <div id="xuan-char">
   <div class="char-bubble" id="charBubble">
     <span id="charText">loading xuan.exe<span class="char-blink">_</span></span>
@@ -728,27 +600,20 @@ body::before{
   </div>
 </div>
 
-<!-- ============================================================
-     JAVASCRIPT
-     ============================================================ -->
 <script>
-/* ---- Footer year ---- */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ---- Navbar: shadow on scroll + mobile menu ---- */
 const nav = document.getElementById('nav');
 const navLinks = document.getElementById('navLinks');
 document.getElementById('navToggle').addEventListener('click', () => navLinks.classList.toggle('open'));
 navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-/* ---- Scroll reveal ---- */
 const io = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-/* ---- Personality terminal typewriter ---- */
 const termLines = [
   { cls:'p', t:'> ' }, { cls:'c', t:'whoami\n' },
   { cls:'o', t:'xuan_lin\n\n' },
@@ -778,7 +643,6 @@ function typeTerminal(){
     })();
   })();
 }
-/* Start typing only when the About section is in view */
 const termObserver = new IntersectionObserver((entries) => {
   entries.forEach(e => {
     if (e.isIntersecting){
@@ -791,7 +655,6 @@ const termObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 termObserver.observe(termBody);
 
-/* ---- Contact form — submits to Formspree ---- */
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
   const note = document.getElementById('formNote');
@@ -813,14 +676,13 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
     .finally(() => { btn.disabled = false; btn.textContent = 'Send Message →'; });
 });
 
-/* ---- Xuan Character ---- */
 const charData = [
   { id:'hero',       img:'images/hero.jpg',        msg:'psst — scroll down, it gets better 👀' },
   { id:'about',      img:'images/avatar.jpg',       msg:'fun fact: i catch the bug everyone else scrolled past. even in prod.' },
   { id:'skills',     img:'images/gentle.jpg',       msg:'// cat skills.json → trust me, it compiles.' },
   { id:'projects',   img:'images/clumsy.jpg',       msg:'built it. broke it. rebuilt it. shipped it. repeat.' },
   { id:'experience', img:'images/professional.jpg', msg:'monitoring 847 alerts rn. still writing docs. still unblinking.' },
-  { id:'contact',    img:'images/hero.jpg',         msg:"i don’t bite. well — depends on the severity level 😌" },
+  { id:'contact',    img:'images/hero.jpg',         msg:"i don't bite. well — depends on the severity level 😌" },
 ];
 
 let charBubbleVisible = true;
