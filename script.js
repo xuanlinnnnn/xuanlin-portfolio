@@ -31,12 +31,27 @@ window.addEventListener('scroll', () => {
   progBar.style.width = pct + '%';
 });
 
-/* --- Cursor Glow --- */
+/* --- Cursor --- */
 const cursorGlow = document.getElementById('cursor-glow');
+const cOut = document.getElementById('cursor-outer');
+const cIn  = document.getElementById('cursor-inner');
+let mx = 0, my = 0, ox = 0, oy = 0;
 document.addEventListener('mousemove', e => {
-  cursorGlow.style.left = e.clientX + 'px';
-  cursorGlow.style.top  = e.clientY + 'px';
+  mx = e.clientX; my = e.clientY;
+  cursorGlow.style.left = mx + 'px'; cursorGlow.style.top = my + 'px';
+  if (cIn) { cIn.style.left = mx + 'px'; cIn.style.top = my + 'px'; }
 });
+if (cOut) {
+  (function rafCursor() {
+    ox += (mx - ox) * .14; oy += (my - oy) * .14;
+    cOut.style.left = ox + 'px'; cOut.style.top = oy + 'px';
+    requestAnimationFrame(rafCursor);
+  })();
+  document.querySelectorAll('a, button, .skill-card, .cert-card, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => cOut.classList.add('hov'));
+    el.addEventListener('mouseleave', () => cOut.classList.remove('hov'));
+  });
+}
 
 /* --- Particle Network Canvas --- */
 (function initParticles() {
@@ -218,6 +233,80 @@ setTimeout(() => charSetMsg(charData[0].msg), 900);
 
 /* --- Footer Year --- */
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* --- Text Scramble on section headings --- */
+const SCHARS = '!<>-_\\/[]{}=+*^?#@$%0123456789ABCDEFabcdef';
+function scramble(el) {
+  const orig = el.textContent;
+  let f = 0; const N = 26;
+  const iv = setInterval(() => {
+    el.textContent = orig.split('').map((c, i) => {
+      if (c === ' ' || c === '.' || c === ',' || c === '&') return c;
+      if (f / N >= i / orig.length) return c;
+      return SCHARS[Math.floor(Math.random() * SCHARS.length)];
+    }).join('');
+    if (++f > N + orig.length) { el.textContent = orig; clearInterval(iv); }
+  }, 32);
+}
+const scrambleObs = new IntersectionObserver((entries, obs) => {
+  entries.forEach(e => { if (e.isIntersecting) { scramble(e.target); obs.unobserve(e.target); } });
+}, { threshold:0.5 });
+document.querySelectorAll('.section-title').forEach(el => scrambleObs.observe(el));
+
+/* --- 3D Card Tilt (desktop only) --- */
+if (window.matchMedia('(pointer:fine)').matches) {
+  document.querySelectorAll('.skill-card, .cert-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width  - .5) * 18;
+      const y = ((e.clientY - r.top)  / r.height - .5) * 18;
+      card.style.transition = 'transform .07s linear';
+      card.style.transform  = `perspective(600px) rotateY(${x}deg) rotateX(${-y}deg) translateZ(10px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transition = 'transform .45s ease';
+      card.style.transform  = '';
+    });
+  });
+}
+
+/* --- Click Sparks --- */
+const SPARK_COLORS = ['var(--teal)','var(--amber)','#a78bfa','#6FCF8E'];
+document.addEventListener('click', e => {
+  for (let i = 0; i < 10; i++) {
+    const s = document.createElement('div');
+    s.className = 'click-spark';
+    const angle = (i / 10) * Math.PI * 2 + Math.random() * .5;
+    const dist  = 25 + Math.random() * 45;
+    s.style.cssText = `left:${e.clientX}px;top:${e.clientY}px;` +
+      `--dx:${Math.cos(angle)*dist}px;--dy:${Math.sin(angle)*dist}px;` +
+      `--sz:${2+Math.random()*4}px;background:${SPARK_COLORS[i%SPARK_COLORS.length]};`;
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 600);
+  }
+});
+
+/* --- Hero Stats Counter --- */
+function countUp(el) {
+  const target = +el.dataset.count, suffix = el.dataset.suffix || '';
+  let cur = 0;
+  const step = Math.max(1, Math.ceil(target / 50));
+  const iv = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur + suffix;
+    if (cur >= target) clearInterval(iv);
+  }, 35);
+}
+const statsEl = document.querySelector('.hero-stats');
+if (statsEl) {
+  new IntersectionObserver((entries, obs) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.querySelectorAll('[data-count]').forEach(countUp);
+      obs.unobserve(e.target);
+    });
+  }, { threshold:.5 }).observe(statsEl);
+}
 
 /* --- Sudo Easter Egg --- */
 let typeBuf = '';
