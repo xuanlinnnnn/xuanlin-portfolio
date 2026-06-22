@@ -31,13 +31,20 @@
 <nav class="nav" id="nav">
   <a href="#hero" class="logo">XUAN<b>.</b>LIN</a>
   <div class="nav-links" id="navLinks">
-    <a href="#about">about</a>
-    <a href="#skills">skills</a>
-    <a href="#projects">projects</a>
-    <a href="#experience">experience</a>
-    <a href="#certs">certs</a>
-    <a href="#tools">tools</a>
-    <a href="#contact">contact</a>
+    <a href="#about" data-i18n="nav.about">about</a>
+    <a href="#skills" data-i18n="nav.skills">skills</a>
+    <a href="#projects" data-i18n="nav.projects">projects</a>
+    <a href="#experience" data-i18n="nav.experience">experience</a>
+    <a href="#certs" data-i18n="nav.certs">certs</a>
+    <a href="#tools" data-i18n="nav.tools">tools</a>
+    <a href="#contact" data-i18n="nav.contact">contact</a>
+  </div>
+  <div class="lang-switcher" id="langSwitcher">
+    <button class="lang-btn active" data-lang="en">EN</button>
+    <button class="lang-btn" data-lang="zh">中文</button>
+    <button class="lang-btn" data-lang="ms">BM</button>
+    <button class="lang-btn" data-lang="ja">日本語</button>
+    <button class="lang-btn" data-lang="ko">한국어</button>
   </div>
   <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">≡</button>
 </nav>
@@ -53,25 +60,25 @@
     </div>
     <div>
       <div class="statusline">
-        <span class="dot"></span> SYSTEM: XUAN LIN &nbsp;//&nbsp; STATUS: <span class="status-good">ALL GREEN</span>
+        <span class="dot"></span><span data-i18n="hero.status"> SYSTEM: XUAN LIN // STATUS:</span> <span class="status-good" data-i18n="hero.status.val">ALL GREEN</span>
       </div>
       <h1 class="glitch" data-text="Xuan Lin">Xuan Lin<span class="cursor">_</span></h1>
       <p class="tagline">
-        Cybersecurity Student<span class="sep">/</span>SOC Analyst<span class="sep">/</span>Automation &amp; Security Enthusiast
+        <span data-i18n="hero.role1">Cybersecurity Student</span><span class="sep">/</span><span data-i18n="hero.role2">SOC Analyst</span><span class="sep">/</span><span data-i18n="hero.role3">Automation &amp; Security Enthusiast</span>
       </p>
-      <p class="intro">
+      <p class="intro" data-i18n="hero.intro">
         I'm a cybersecurity student and aspiring SOC analyst who lets the work speak first.
         Quiet on the surface, meticulous underneath — I notice the small things, document them
         properly, and give everything I take on my full attention.
       </p>
       <div class="hero-stats">
-        <div class="hstat"><span class="hstat-n" data-count="3">0</span><span class="hstat-l">companies</span></div>
-        <div class="hstat"><span class="hstat-n" data-count="2">0</span><span class="hstat-l">certs earned</span></div>
-        <div class="hstat"><span class="hstat-n" data-count="5" data-suffix="+">0</span><span class="hstat-l">yrs in tech</span></div>
+        <div class="hstat"><span class="hstat-n" data-count="3">0</span><span class="hstat-l" data-i18n="hero.stat1">companies</span></div>
+        <div class="hstat"><span class="hstat-n" data-count="2">0</span><span class="hstat-l" data-i18n="hero.stat2">certs earned</span></div>
+        <div class="hstat"><span class="hstat-n" data-count="5" data-suffix="+">0</span><span class="hstat-l" data-i18n="hero.stat3">yrs in tech</span></div>
       </div>
       <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">View Projects →</a>
-        <a href="#contact" class="btn btn-ghost">Contact Me</a>
+        <a href="#projects" class="btn btn-primary" data-i18n="hero.btn1">View Projects →</a>
+        <a href="#contact" class="btn btn-ghost" data-i18n="hero.btn2">Contact Me</a>
       </div>
       <div class="learning-ticker">
         <span class="ticker-label">// currently learning:</span>
@@ -88,37 +95,37 @@
 
 <section class="band" id="about" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">about_me</p>
-    <h2 class="section-title">Small circle, full commitment.</h2>
+    <p class="eyebrow" data-i18n="about.eyebrow">about_me</p>
+    <h2 class="section-title" data-i18n="about.title">Small circle, full commitment.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/avatar.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ./introduce --section about</span>
     </div>
     <div class="about-grid">
       <div class="about-text">
-        <p>
+        <p data-i18n-html="about.p1.html">
           I'm currently studying <strong>Digital Cybersecurity &amp; Digital Forensics at Singapore
           Polytechnic</strong>, and have hands-on experience as a <strong>SOC Level 1 Analyst</strong>.
           Most of my days are spent close to real alerts — triaging, investigating, and learning how
           security actually works when it's live and not just in a textbook.
         </p>
-        <p>
+        <p data-i18n-html="about.p2.html">
           I'm drawn to <strong>security operations, automation, threat analysis, and building practical
           security solutions</strong> — the kind of work where attention to detail genuinely matters.
           I can be a little cold at first, but people tend to notice the 细心 (the care) once I'm in
           something: I catch the detail everyone else scrolled past, write the documentation no one wants
           to write, and follow things through to the end.
         </p>
-        <p>
+        <p data-i18n-html="about.p3.html">
           I don't keep a big circle, but whatever I take on — friendship, family, school, or work —
           gets all of me. (And, allegedly, I'm the funniest one in the group.)
         </p>
         <div class="about-tags">
-          <span class="tag">introvert</span>
-          <span class="tag">细心 / meticulous</span>
-          <span class="tag">gentle</span>
-          <span class="tag">all-in</span>
-          <span class="tag">curious</span>
+          <span class="tag" data-i18n="about.tag1">introvert</span>
+          <span class="tag" data-i18n="about.tag2">细心 / meticulous</span>
+          <span class="tag" data-i18n="about.tag3">gentle</span>
+          <span class="tag" data-i18n="about.tag4">all-in</span>
+          <span class="tag" data-i18n="about.tag5">curious</span>
         </div>
       </div>
       <div class="terminal" id="termWrapper">
@@ -135,8 +142,8 @@
 
 <section id="skills" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">capabilities</p>
-    <h2 class="section-title">What I actually do.</h2>
+    <p class="eyebrow" data-i18n="skills.eyebrow">capabilities</p>
+    <h2 class="section-title" data-i18n="skills.title">What I actually do.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/gentle.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> cat skills.json <span style="color:var(--faint)">// no buzzword padding, promise</span></span>
@@ -144,7 +151,7 @@
     <div class="skills-grid">
       <div class="skill-card">
         <div class="accent"></div>
-        <div class="head"><h3>Cybersecurity</h3><span class="idx">01</span></div>
+        <div class="head"><h3 data-i18n="skills.c1">Cybersecurity</h3><span class="idx">01</span></div>
         <ul class="skill-list">
           <li>SOC monitoring</li><li>Alert triage</li><li>IOC sweeping</li>
           <li>Threat hunting</li><li>Incident investigation</li>
@@ -153,7 +160,7 @@
       </div>
       <div class="skill-card">
         <div class="accent"></div>
-        <div class="head"><h3>Tools</h3><span class="idx">02</span></div>
+        <div class="head"><h3 data-i18n="skills.c2">Tools</h3><span class="idx">02</span></div>
         <ul class="skill-list">
           <li>Wireshark</li><li>Autopsy</li><li>Magnet AXIOM</li>
           <li>Trend Micro Vision One</li><li>Graylog</li><li>n8n</li><li>+ more</li>
@@ -162,7 +169,7 @@
       </div>
       <div class="skill-card">
         <div class="accent"></div>
-        <div class="head"><h3>Technical</h3><span class="idx">03</span></div>
+        <div class="head"><h3 data-i18n="skills.c3">Technical</h3><span class="idx">03</span></div>
         <ul class="skill-list">
           <li>Python</li><li>JavaScript</li><li>HTML</li><li>CSS</li>
           <li>Node.js</li><li>Linux</li><li>APIs</li><li>+ more</li>
@@ -171,7 +178,7 @@
       </div>
       <div class="skill-card">
         <div class="accent"></div>
-        <div class="head"><h3>Soft Skills</h3><span class="idx">04</span></div>
+        <div class="head"><h3 data-i18n="skills.c4">Soft Skills</h3><span class="idx">04</span></div>
         <ul class="skill-list">
           <li>Teamwork</li><li>Documentation</li><li>Communication</li><li>Problem solving</li>
         </ul>
@@ -183,8 +190,8 @@
 
 <section id="soc-ops" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">live_ops</p>
-    <h2 class="section-title">Security Operations Center.</h2>
+    <p class="eyebrow" data-i18n="soc.eyebrow">live_ops</p>
+    <h2 class="section-title" data-i18n="soc.title">Security Operations Center.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/professional.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> tail -f /var/log/soc.log <span style="color:var(--faint)">// simulated environment</span></span>
@@ -234,8 +241,8 @@
 
 <section class="band" id="projects" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">selected_work</p>
-    <h2 class="section-title">Things I've built &amp; broken on purpose.</h2>
+    <p class="eyebrow" data-i18n="proj.eyebrow">selected_work</p>
+    <h2 class="section-title" data-i18n-html="proj.title">Things I've built &amp; broken on purpose.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/clumsy.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ls ./projects <span style="color:var(--faint)">// hover cards to see more</span></span>
@@ -353,8 +360,8 @@
 
 <section id="experience" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">experience</p>
-    <h2 class="section-title">Shipped. Delivered. Repeated.</h2>
+    <p class="eyebrow" data-i18n="exp.eyebrow">experience</p>
+    <h2 class="section-title" data-i18n="exp.title">Shipped. Delivered. Repeated.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/professional.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> tail -f experience.log</span>
@@ -399,8 +406,8 @@
 
 <section class="band" id="certs" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">certifications</p>
-    <h2 class="section-title">Credentials & achievements.</h2>
+    <p class="eyebrow" data-i18n="certs.eyebrow">certifications</p>
+    <h2 class="section-title" data-i18n-html="certs.title">Credentials &amp; achievements.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/avatar.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ls ./certs</span>
@@ -437,8 +444,8 @@
 
 <section class="band" id="tools" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">security_tools</p>
-    <h2 class="section-title">Try it hands-on.</h2>
+    <p class="eyebrow" data-i18n="tools.eyebrow">security_tools</p>
+    <h2 class="section-title" data-i18n="tools.title">Try it hands-on.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/gentle.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> ./pw-analyzer --live <span style="color:var(--faint)">// real entropy math, runs in your browser</span></span>
@@ -446,11 +453,11 @@
     <div class="tool-grid">
       <div class="pw-analyzer">
         <div class="pw-head">
-          <h3>Password Strength Analyzer</h3>
-          <p class="pw-head-sub">// entropy · charset detection · estimated crack time (offline GPU, ~1.6 × 10¹² h/s)</p>
+          <h3 data-i18n="pw.title">Password Strength Analyzer</h3>
+          <p class="pw-head-sub" data-i18n="pw.sub">// entropy · charset detection · estimated crack time (offline GPU, ~1.6 × 10¹² h/s)</p>
         </div>
         <div class="pw-input-wrap">
-          <input type="password" id="pwInput" class="pw-input" placeholder="Enter any password to test..." autocomplete="new-password" spellcheck="false" />
+          <input type="password" id="pwInput" class="pw-input" placeholder="Enter any password to test..." data-i18n-ph="pw.ph" autocomplete="new-password" spellcheck="false" />
           <button class="pw-eye" id="pwEye" aria-label="Toggle visibility">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           </button>
@@ -461,24 +468,24 @@
         </div>
         <div class="pw-result-grid">
           <div class="pw-result-item">
-            <span class="pw-ri-l">Entropy</span>
+            <span class="pw-ri-l" data-i18n="pw.l.entropy">Entropy</span>
             <span class="pw-ri-v" id="pwEntropy">—</span>
           </div>
           <div class="pw-result-item">
-            <span class="pw-ri-l">Charset size</span>
+            <span class="pw-ri-l" data-i18n="pw.l.charset">Charset size</span>
             <span class="pw-ri-v" id="pwCharsetSize">—</span>
           </div>
           <div class="pw-result-item">
-            <span class="pw-ri-l">Character types</span>
+            <span class="pw-ri-l" data-i18n="pw.l.chars">Character types</span>
             <span class="pw-ri-v" id="pwCharTypes">—</span>
           </div>
           <div class="pw-result-item">
-            <span class="pw-ri-l">Est. crack time</span>
+            <span class="pw-ri-l" data-i18n="pw.l.crack">Est. crack time</span>
             <span class="pw-ri-v" id="pwCrackTime">—</span>
           </div>
         </div>
         <div class="pw-tips" id="pwTips"></div>
-        <p class="pw-disclaimer">// runs entirely in your browser — nothing is sent anywhere.</p>
+        <p class="pw-disclaimer" data-i18n="pw.disclaimer">// runs entirely in your browser — nothing is sent anywhere.</p>
       </div>
     </div>
   </div>
@@ -486,15 +493,15 @@
 
 <section id="contact" style="padding-block:var(--section-y);">
   <div class="wrap reveal">
-    <p class="eyebrow">get_in_touch</p>
-    <h2 class="section-title">Cold at first — I warm up, promise.</h2>
+    <p class="eyebrow" data-i18n="contact.eyebrow">get_in_touch</p>
+    <h2 class="section-title" data-i18n="contact.title">Cold at first — I warm up, promise.</h2>
     <div class="cmd-pill">
       <img class="avatar" src="images/hero.jpg" alt="" onerror="this.style.background='linear-gradient(135deg,var(--teal),var(--amber))';this.removeAttribute('src')">
       <span><span class="prompt">xuanlin@soc:~$</span> echo "say hi 👋"</span>
     </div>
     <div class="contact-grid">
       <div>
-        <p class="lead">Open to opportunities, collaborations, or just a good conversation about security. Drop a line through any of these:</p>
+        <p class="lead" data-i18n="contact.lead">Open to opportunities, collaborations, or just a good conversation about security. Drop a line through any of these:</p>
         <div class="contact-links">
           <a class="contact-link" href="mailto:lauxuanlin2@gmail.com">
             <span class="k">email</span><span class="v">lauxuanlin2@gmail.com</span>
@@ -512,26 +519,26 @@
       </div>
       <form class="contact-form" id="contactForm" action="https://formspree.io/f/mjgdpboe" method="POST" novalidate>
         <div class="field">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" placeholder="Your name" required />
+          <label for="name" data-i18n="form.name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" data-i18n-ph="form.ph.name" required />
         </div>
         <div class="field">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+          <label for="email" data-i18n="form.email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" data-i18n-ph="form.ph.email" required />
         </div>
         <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" placeholder="What's on your mind?" required></textarea>
+          <label for="message" data-i18n="form.msg">Message</label>
+          <textarea id="message" name="message" placeholder="What's on your mind?" data-i18n-ph="form.ph.msg" required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">Send Message →</button>
-        <p class="form-note" id="formNote">// messages go straight to my inbox.</p>
+        <button type="submit" class="btn btn-primary" data-i18n="form.submit">Send Message →</button>
+        <p class="form-note" id="formNote" data-i18n="form.note">// messages go straight to my inbox.</p>
       </form>
     </div>
   </div>
 </section>
 
 <footer class="footer">
-  <span>© <span id="year"></span> Xuan Lin — built from scratch.</span>
+  <span>© <span id="year"></span> Xuan Lin — <span data-i18n="footer.built">built from scratch.</span></span>
   <span>STATUS: <span class="status-good">● ALL GREEN</span></span>
 </footer>
 
@@ -575,6 +582,7 @@
   </button>
 </div>
 
+<script src="i18n.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

@@ -539,11 +539,11 @@ document.addEventListener('keydown', e => {
     const combos     = charset > 0 ? Math.pow(charset, pw.length) : 0;
     const crackSecs  = combos / 2 / 1.6e12;
     let strength, pct, color;
-    if      (entropy < 28) { strength='CRITICAL';    pct=8;   color='#E2685B'; }
-    else if (entropy < 40) { strength='WEAK';        pct=28;  color='#E07850'; }
-    else if (entropy < 55) { strength='MODERATE';    pct=54;  color='var(--amber)'; }
-    else if (entropy < 70) { strength='STRONG';      pct=78;  color='var(--teal)'; }
-    else                   { strength='VERY STRONG'; pct=100; color='var(--good)'; }
+    if      (entropy < 28) { strength=t('pw.s.critical'); pct=8;   color='#E2685B'; }
+    else if (entropy < 40) { strength=t('pw.s.weak');     pct=28;  color='#E07850'; }
+    else if (entropy < 55) { strength=t('pw.s.moderate'); pct=54;  color='var(--amber)'; }
+    else if (entropy < 70) { strength=t('pw.s.strong');   pct=78;  color='var(--teal)'; }
+    else                   { strength=t('pw.s.vstrong');  pct=100; color='var(--good)'; }
     pwMeter.style.width = pct+'%'; pwMeter.style.background = color;
     pwStrLbl.textContent = strength; pwStrLbl.style.color = color;
     if (pwEntropy)   pwEntropy.textContent   = entropy.toFixed(1)+' bits';
@@ -551,12 +551,12 @@ document.addEventListener('keydown', e => {
     if (pwCharTypes) pwCharTypes.textContent = types.length ? types.join(' + ') : '—';
     if (pwCrack) { pwCrack.textContent = fmtTime(crackSecs); pwCrack.style.color = pct<55?'#E2685B':pct<78?'var(--amber)':'var(--good)'; }
     const tips = [];
-    if (pw.length < 12)              tips.push('Use 12+ characters');
-    if (!hasUpper)                   tips.push('Add uppercase letters');
-    if (!hasDigit)                   tips.push('Add numbers (0-9)');
-    if (!hasSymbol)                  tips.push('Add symbols (!@#$...)');
-    if (/(.)\1{2,}/.test(pw))        tips.push('Avoid repeated chars');
-    if (/^[0-9]+$/.test(pw))         tips.push("Don't use only numbers");
+    if (pw.length < 12)              tips.push(t('pw.tip.len'));
+    if (!hasUpper)                   tips.push(t('pw.tip.upper'));
+    if (!hasDigit)                   tips.push(t('pw.tip.num'));
+    if (!hasSymbol)                  tips.push(t('pw.tip.sym'));
+    if (/(.)\1{2,}/.test(pw))        tips.push(t('pw.tip.rep'));
+    if (/^[0-9]+$/.test(pw))         tips.push(t('pw.tip.nonum'));
     if (pwTips) pwTips.innerHTML = tips.map(t=>`<span class="pw-tip">↑ ${t}</span>`).join('');
   }
   pwInput.addEventListener('input', () => analyze(pwInput.value));
