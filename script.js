@@ -1,4 +1,5 @@
 /* --- Loading Screen --- */
+const isFirstVisit = !sessionStorage.getItem('xl_loaded');
 const loader = document.getElementById('loader');
 if (!sessionStorage.getItem('xl_loaded')) {
   sessionStorage.setItem('xl_loaded', '1');
@@ -299,13 +300,9 @@ function countUp(el) {
 }
 const statsEl = document.querySelector('.hero-stats');
 if (statsEl) {
-  new IntersectionObserver((entries, obs) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      e.target.querySelectorAll('[data-count]').forEach(countUp);
-      obs.unobserve(e.target);
-    });
-  }, { threshold:.5 }).observe(statsEl);
+  setTimeout(() => {
+    statsEl.querySelectorAll('[data-count]').forEach(countUp);
+  }, isFirstVisit ? 2100 : 600);
 }
 
 /* --- Sudo Easter Egg --- */
